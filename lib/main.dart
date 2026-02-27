@@ -1,5 +1,6 @@
 import 'package:ecommerce/core/app_colors.dart';
 import 'package:ecommerce/views/auth/ui/login-viwe.dart';
+import 'package:ecommerce/views/navBar/UI/NavBarView.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -15,7 +16,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(scaffoldBackgroundColor: AppColors.kScaffoldColor),
-      home: const LoginViwe(),
+      home:  Mainhomeview(),
     );
   }
 }
