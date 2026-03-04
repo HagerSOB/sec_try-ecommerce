@@ -42,15 +42,15 @@ class HomeView extends StatelessWidget {
                 children: [
                   Stack(children: [
                     ClipRRect(
-                        borderRadius: BorderRadius.only(
-                          topRight: Radius.circular(12),
-                          bottomLeft: Radius.circular(12),
-                          bottomRight: Radius.circular(12),
-                        ),
-                        child: Image(
+                      borderRadius: BorderRadius.only(
+                        topRight: Radius.circular(12),
+                        bottomLeft: Radius.circular(12),
+                        bottomRight: Radius.circular(12),
+                      ),
+                      child: Image(
                           image: NetworkImage(
-                              "https://cms.dresma.com/uploads/Header_79107acd68.jpg"),
-                        )),
+                              "https://cms.dresma.com/uploads/Header_79107acd68.jpg")),
+                    ),
                     Positioned(
                         child: Container(
                       child: Center(
@@ -68,6 +68,73 @@ class HomeView extends StatelessWidget {
                     ))
                   ])
                 ],
+              ),
+              SizedBox(
+                height: 15,
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          "Product Name",
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 20),
+                        ),
+                        IconButton(
+                            onPressed: () {},
+                            icon: Icon(
+                              Icons.favorite,
+                              color: AppColors.kGreyColor,
+                            ))
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: Column(crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    "150 LE",
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 20),
+                                  ),
+                                  ElevatedButton.icon(
+                                    style: ElevatedButton.styleFrom(
+                                        backgroundColor:
+                                            AppColors.kPrimaryColor,
+                                        foregroundColor: AppColors.kWhiteColor,
+                                        shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(8))),
+                                    onPressed: () {},
+                                    label: Text("Buy Now!"),
+                                  ),
+                                ],
+                              ),
+                              Text(
+                                "210",
+                                style: TextStyle(
+                                  decoration: TextDecoration.lineThrough,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 15,color: AppColors.kGreyColor),
+                              ),
+
+                            ],
+                          ),
+                        )
+                      ],
+                    )
+                  ],
+                ),
               )
             ],
           ),
