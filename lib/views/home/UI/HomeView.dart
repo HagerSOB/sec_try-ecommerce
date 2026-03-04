@@ -33,23 +33,40 @@ class HomeView extends StatelessWidget {
         const SizedBox(
           height: 15,
         ),
-        const Card(
+        Card(
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.all(Radius.circular(16))),
           child: Column(
             children: [
               Stack(
                 children: [
-                  ClipRRect(
-                      borderRadius: BorderRadius.only(
-                        topRight: Radius.circular(12),
-                        bottomLeft: Radius.circular(12),
-                        bottomRight: Radius.circular(12),
-                      ),
-                      child: Image(
-                        image: NetworkImage(
-                            "https://cms.dresma.com/uploads/Header_79107acd68.jpg"),
-                      ))
+                  Stack(children: [
+                    ClipRRect(
+                        borderRadius: BorderRadius.only(
+                          topRight: Radius.circular(12),
+                          bottomLeft: Radius.circular(12),
+                          bottomRight: Radius.circular(12),
+                        ),
+                        child: Image(
+                          image: NetworkImage(
+                              "https://cms.dresma.com/uploads/Header_79107acd68.jpg"),
+                        )),
+                    Positioned(
+                        child: Container(
+                      child: Center(
+                          child: Text(
+                        "10% off",
+                        style: TextStyle(color: AppColors.kWhiteColor),
+                      )),
+                      width: 65,
+                      height: 40,
+                      decoration: BoxDecoration(
+                          color: AppColors.kPrimaryColor,
+                          borderRadius: BorderRadius.only(
+                              topRight: Radius.circular(8),
+                              bottomRight: Radius.circular(8))),
+                    ))
+                  ])
                 ],
               )
             ],
