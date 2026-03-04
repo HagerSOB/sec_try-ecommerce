@@ -11,18 +11,51 @@ class HomeView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
-      child: ListView(
-        children: [
-           const CustomSearchField(),
-           const SizedBox(height: 20,),
-          Image.asset("assets/images/shopping.jpg",),
-         const SizedBox(height: 20,),
-
-           const Text("Popular categories",style: TextStyle(fontSize: 24,fontWeight: FontWeight.normal),)
-          , const SizedBox(height: 15,),
-         const CategoriesList()
-
-        ]),
+      child: ListView(children: [
+        const CustomSearchField(),
+        const SizedBox(
+          height: 20,
+        ),
+        Image.asset(
+          "assets/images/shopping.jpg",
+        ),
+        const SizedBox(
+          height: 20,
+        ),
+        const Text(
+          "Popular categories",
+          style: TextStyle(fontSize: 24, fontWeight: FontWeight.normal),
+        ),
+        const SizedBox(
+          height: 15,
+        ),
+        const CategoriesList(),
+        const SizedBox(
+          height: 15,
+        ),
+        const Card(
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(16))),
+          child: Column(
+            children: [
+              Stack(
+                children: [
+                  ClipRRect(
+                      borderRadius: BorderRadius.only(
+                        topRight: Radius.circular(12),
+                        bottomLeft: Radius.circular(12),
+                        bottomRight: Radius.circular(12),
+                      ),
+                      child: Image(
+                        image: NetworkImage(
+                            "https://cms.dresma.com/uploads/Header_79107acd68.jpg"),
+                      ))
+                ],
+              )
+            ],
+          ),
+        )
+      ]),
     );
   }
 }
