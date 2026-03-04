@@ -1,4 +1,5 @@
 import 'package:ecommerce/CustomWidgets/CustomTextField.dart';
+import 'package:ecommerce/CustomWidgets/custom-evaButton.dart';
 import 'package:ecommerce/views/home/widgets/categoriesList.dart';
 import 'package:ecommerce/CustomWidgets/customSearchField.dart';
 import 'package:ecommerce/core/app_colors.dart';
@@ -107,17 +108,7 @@ class HomeView extends StatelessWidget {
                                         fontWeight: FontWeight.bold,
                                         fontSize: 20),
                                   ),
-                                  ElevatedButton.icon(
-                                    style: ElevatedButton.styleFrom(
-                                        backgroundColor:
-                                            AppColors.kPrimaryColor,
-                                        foregroundColor: AppColors.kWhiteColor,
-                                        shape: RoundedRectangleBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(8))),
-                                    onPressed: () {},
-                                    label: Text("Buy Now!"),
-                                  ),
+                                  CustomEvaButton(),
                                 ],
                               ),
                               Text(
@@ -143,3 +134,4 @@ class HomeView extends StatelessWidget {
     );
   }
 }
+
