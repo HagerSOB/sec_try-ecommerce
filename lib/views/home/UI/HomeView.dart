@@ -1,5 +1,5 @@
-import 'package:ecommerce/CustomWidgets/CustomTextField.dart';
 import 'package:ecommerce/CustomWidgets/custom-evaButton.dart';
+import 'package:ecommerce/CustomWidgets/custom_cached_image.dart';
 import 'package:ecommerce/views/home/widgets/categoriesList.dart';
 import 'package:ecommerce/CustomWidgets/customSearchField.dart';
 import 'package:ecommerce/core/app_colors.dart';
@@ -35,7 +35,7 @@ class HomeView extends StatelessWidget {
           height: 15,
         ),
         Card(
-          shape: RoundedRectangleBorder(
+          shape: const RoundedRectangleBorder(
               borderRadius: BorderRadius.all(Radius.circular(16))),
           child: Column(
             children: [
@@ -43,25 +43,23 @@ class HomeView extends StatelessWidget {
                 children: [
                   Stack(children: [
                     ClipRRect(
-                      borderRadius: BorderRadius.only(
+                      borderRadius: const BorderRadius.only(
                         topRight: Radius.circular(12),
                         bottomLeft: Radius.circular(12),
                         bottomRight: Radius.circular(12),
                       ),
-                      child: Image(
-                          image: NetworkImage(
-                              "https://cms.dresma.com/uploads/Header_79107acd68.jpg")),
+                      child: CustomCachedImage(url: "https://cms.dresma.com/uploads/Header_79107acd68.jpg",)
                     ),
                     Positioned(
                         child: Container(
-                      child: Center(
+                      child: const Center(
                           child: Text(
                         "10% off",
                         style: TextStyle(color: AppColors.kWhiteColor),
                       )),
                       width: 65,
                       height: 40,
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                           color: AppColors.kPrimaryColor,
                           borderRadius: BorderRadius.only(
                               topRight: Radius.circular(8),
@@ -70,7 +68,7 @@ class HomeView extends StatelessWidget {
                   ])
                 ],
               ),
-              SizedBox(
+              const SizedBox(
                 height: 15,
               ),
               Padding(
@@ -80,20 +78,20 @@ class HomeView extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(
+                        const Text(
                           "Product Name",
                           style: TextStyle(
                               fontWeight: FontWeight.bold, fontSize: 20),
                         ),
                         IconButton(
                             onPressed: () {},
-                            icon: Icon(
+                            icon: const Icon(
                               Icons.favorite,
                               color: AppColors.kGreyColor,
                             ))
                       ],
                     ),
-                    Row(
+                    const Row(
                       children: [
                         Expanded(
                           child: Column(crossAxisAlignment: CrossAxisAlignment.start,
@@ -134,4 +132,6 @@ class HomeView extends StatelessWidget {
     );
   }
 }
+
+
 
