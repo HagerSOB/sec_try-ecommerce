@@ -1,5 +1,6 @@
 import 'package:ecommerce/CustomWidgets/custom-card.dart';
 import 'package:ecommerce/core/app_colors.dart';
+import 'package:ecommerce/views/profile/widgets/edit-nameView.dart';
 import 'package:flutter/material.dart';
 
 class Profileview extends StatelessWidget {
@@ -46,27 +47,38 @@ class Profileview extends StatelessWidget {
                 const Text(
                   "User Email",
                   style: TextStyle(fontSize: 15, color: AppColors.kGreyColor),
-
                 ),
                 const SizedBox(height: 12),
-
-                CustomCard(title: "Edit Name",backgroundColor: AppColors.kScaffoldColor ,icon: Icons.person, contentColor: AppColors.kWhiteColor, onTap: (){}),
-                      const SizedBox(height: 12),
-                CustomCard(title: "My Orders",backgroundColor: AppColors.kScaffoldColor ,icon: Icons.person, contentColor: AppColors.kWhiteColor, onTap: (){}),
+                CustomCard(
+                    title: "Edit Name",
+                    backgroundColor: AppColors.kScaffoldColor,
+                    icon: Icons.person,
+                    contentColor: AppColors.kWhiteColor,
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => const EditNameview()),
+                      );                    }),
                 const SizedBox(height: 12),
-                CustomCard(title: "Logout",backgroundColor: AppColors.kScaffoldColor ,icon: Icons.logout, contentColor: AppColors.kWhiteColor, onTap: (){}),
+                CustomCard(
+                    title: "My Orders",
+                    backgroundColor: AppColors.kScaffoldColor,
+                    icon: Icons.person,
+                    contentColor: AppColors.kWhiteColor,
+                    onTap: () {}),
                 const SizedBox(height: 12),
-
-
-
-
-
-
+                CustomCard(
+                    title: "Logout",
+                    backgroundColor: AppColors.kScaffoldColor,
+                    icon: Icons.logout,
+                    contentColor: AppColors.kWhiteColor,
+                    onTap: () {}),
+                const SizedBox(height: 12),
               ],
             ),
           ),
         ],
       ),
     );
-  }}
-
+  }
+}

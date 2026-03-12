@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 
 class CustomEvaButton extends StatelessWidget {
   const CustomEvaButton({
-    super.key,
+    super.key, required this.Lable,
   });
-
+ final String Lable;
   @override
   Widget build(BuildContext context) {
     return ElevatedButton.icon(
@@ -17,7 +17,8 @@ class CustomEvaButton extends StatelessWidget {
               borderRadius:
               BorderRadius.circular(8))),
       onPressed: () {},
-      label: Text("Buy Now!"),
+
+      label:Text(Lable),
     );
   }
 }
