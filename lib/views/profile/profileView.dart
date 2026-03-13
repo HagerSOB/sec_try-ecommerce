@@ -1,6 +1,7 @@
 import 'package:ecommerce/CustomWidgets/custom-card.dart';
 import 'package:ecommerce/core/app_colors.dart';
 import 'package:ecommerce/views/profile/widgets/edit-nameView.dart';
+import 'package:ecommerce/views/profile/widgets/my-ordersView.dart';
 import 'package:flutter/material.dart';
 
 class Profileview extends StatelessWidget {
@@ -63,9 +64,14 @@ class Profileview extends StatelessWidget {
                 CustomCard(
                     title: "My Orders",
                     backgroundColor: AppColors.kScaffoldColor,
-                    icon: Icons.person,
+                    icon: Icons.shopping_basket,
                     contentColor: AppColors.kWhiteColor,
-                    onTap: () {}),
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => const MyOrdersView()),
+                      );
+                    }),
                 const SizedBox(height: 12),
                 CustomCard(
                     title: "Logout",
