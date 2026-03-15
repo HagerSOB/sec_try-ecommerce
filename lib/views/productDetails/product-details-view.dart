@@ -1,6 +1,8 @@
+import 'package:ecommerce/CustomWidgets/CustomTextField.dart';
 import 'package:ecommerce/CustomWidgets/custom_cached_image.dart';
 import 'package:ecommerce/core/Methods/custom-appBar.dart';
 import 'package:ecommerce/core/app_colors.dart';
+import 'package:ecommerce/views/productDetails/widgets/comment-list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
@@ -48,7 +50,18 @@ class ProductDetailsView extends StatelessWidget {
         print(rating);
       },
     ),
-              
+              SizedBox(height: 20),
+              CustomTextField(hintText: "Type Your Feedback",SuuffIcon: IconButton(onPressed: (){}, icon: Icon(Icons.send)), onChanged: (String ) {  },)
+              ,SizedBox(height: 15),
+              Row(
+                children: [
+                  Text("data",style: TextStyle(fontSize: 18),),
+                ],
+              ),
+              SizedBox(height: 20),
+              CommentsList()
+
+
             ],
           ),
         )
@@ -57,3 +70,5 @@ class ProductDetailsView extends StatelessWidget {
     );
   }
 }
+
+
