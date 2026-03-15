@@ -10,7 +10,7 @@ class CustomCachedImage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CachedNetworkImage(
-      fit: BoxFit.cover,height: 250,
+      fit: BoxFit.cover,height: 350,
       width: double.infinity,
       imageUrl:url,
       placeholder: (context, url) => SizedBox(
