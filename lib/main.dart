@@ -1,12 +1,20 @@
+import 'package:ecommerce/constains.dart';
 import 'package:ecommerce/core/app_colors.dart';
 import 'package:ecommerce/views/auth/ui/login-viwe.dart';
 import 'package:ecommerce/views/navBar/UI/NavBarView.dart';
 import 'package:flutter/material.dart';
 
-void main() {
-  runApp(const MyApp());
-}
+import 'package:supabase_flutter/supabase_flutter.dart';
 
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  await Supabase.initialize(
+    url: Cons.URL,
+    anonKey: Cons.annacK,
+  );
+  runApp(MyApp());
+}
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
