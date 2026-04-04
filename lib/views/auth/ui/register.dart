@@ -25,6 +25,7 @@ class _LoginState extends State<RegisterViwe> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController nameController = TextEditingController();
+  bool IsbasswordHide=true;
 
   @override
   Widget build(BuildContext context) {
@@ -89,10 +90,15 @@ class _LoginState extends State<RegisterViwe> {
                             SizedBox(height: 25),
                             CustomTextField(
                               hintText: 'password',
+                              obscureText: IsbasswordHide,
+
                               SuuffIcon: IconButton(
-                                  onPressed: () {},
-                                  icon: Icon(Icons.visibility_off)),
-                              obscureText: true,
+                                  onPressed: () {
+                                    setState(() {
+                                      IsbasswordHide = !IsbasswordHide;
+                                    });
+                                  },
+                                  icon: Icon( IsbasswordHide ? Icons.visibility: Icons.visibility_off)),
                               onChanged: (value) {
                                 setState(() {
                                   _password = value;

@@ -22,7 +22,7 @@ class _LoginState extends State<LoginViwe> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
  late final TextEditingController   emailController;
   late final TextEditingController   passwordController;
-
+bool IsbasswordHide=true;
   @override
   void initState() {
     super.initState();
@@ -79,9 +79,14 @@ class _LoginState extends State<LoginViwe> {
                           SizedBox(height: 25),
                           CustomTextField(
                             hintText: 'password',
+                            obscureText: IsbasswordHide,
                             SuuffIcon: IconButton(
-                                onPressed: () {}, icon: Icon(Icons.visibility_off)),
-                            obscureText: true,
+                                onPressed: () {
+                                  setState(() {
+                                    IsbasswordHide = !IsbasswordHide;
+                                  });
+                                },
+                                icon: Icon( IsbasswordHide ? Icons.visibility: Icons.visibility_off)),
                             onChanged: (value) {
                               setState(() {
                                 _password = value;
