@@ -30,14 +30,6 @@ class _LoginState extends State<LoginViwe> {
     passwordController = TextEditingController();
   }
   @override
-  void dispose() {
-    // 2. Clean up / تنظيف الذاكرة
-    emailController.dispose();
-    passwordController.dispose();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return BlocConsumer<AuthCubit,AuthenState>(
       builder: (BuildContext context, AuthenState state) {
@@ -215,4 +207,13 @@ class _LoginState extends State<LoginViwe> {
       },
     );
   }
+
+  @override
+  void dispose() {
+    emailController.dispose();
+    passwordController.dispose();
+
+    super.dispose();
+  }
+
 }
