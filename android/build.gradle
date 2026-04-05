@@ -1,7 +1,28 @@
+buildscript {
+    ext.kotlin_version = '1.9.10'
+    repositories {
+        google()
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:8.2.1'
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+    }
+}
+
 allprojects {
     repositories {
         google()
         mavenCentral()
+    }
+
+    // الخدعة هنا: بنعرف "flutter" لكل المشاريع عشان مكتبة app_links متعيطش
+    project.ext {
+        flutter = [
+                compileSdkVersion: 34,
+                minSdkVersion: 21,
+                targetSdkVersion: 34
+        ]
     }
 }
 
@@ -9,8 +30,13 @@ rootProject.buildDir = "../build"
 subprojects {
     project.buildDir = "${rootProject.buildDir}/${project.name}"
 }
+
 subprojects {
     project.evaluationDependsOn(":app")
+}
+
+// تثبيت الإعدادات لكل المكتبات الفرعية
+subprojects {
 }
 
 tasks.register("clean", Delete) {

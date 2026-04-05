@@ -9,11 +9,12 @@ class CustomTextField extends StatelessWidget {
   final String ? name;
   final Function(String) onChanged;
   final String? Function(String?)? validator;
+  final TextEditingController ? controller;
   const CustomTextField({
     super.key,
     required this.hintText,
     this.obscureText = false,
-    required this.onChanged, this.validator, this.SuuffIcon, this.name,
+    required this.onChanged, this.validator, this.SuuffIcon, this.name,  this.controller,
   });
 
   @override
@@ -21,6 +22,7 @@ class CustomTextField extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(left: 8, right: 8),
       child: TextFormField(
+        controller: controller,
           obscureText: obscureText,
           validator: validator,
           decoration: InputDecoration(
