@@ -170,7 +170,7 @@ bool IsbasswordHide=true;
                                 side:BorderSide(color: Colors.white),
                               ),
                               onPressed: () {
-                                Navigator.push(context, MaterialPageRoute(builder: (context)=> Mainhomeview()));
+                                cubit.signInWithGoogle();
                                 print("Google Sign-in clicked");
                               },
                               child: Row(
@@ -204,7 +204,7 @@ bool IsbasswordHide=true;
       );
       },
       listener: (BuildContext context, AuthenState state) {
-        if (state is LoginSuccses) {
+        if (state is LoginSuccses|| state is GoogleSignInSuccses) {
           Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Mainhomeview()));
         } else if (state is LoginError) {
           ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(state.message)));

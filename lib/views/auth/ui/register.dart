@@ -187,6 +187,7 @@ class _LoginState extends State<RegisterViwe> {
                                   side: BorderSide(color: Colors.white),
                                 ),
                                 onPressed: () {
+                                  cubit.signInWithGoogle();
                                   print("Google Sign-in clicked");
                                 },
                                 child: Row(

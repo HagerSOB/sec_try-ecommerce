@@ -1,5 +1,6 @@
 import 'package:ecommerce/constains.dart';
 import 'package:ecommerce/core/app_colors.dart';
+import 'package:ecommerce/core/my-observer.dart';
 import 'package:ecommerce/views/auth/logic/cubit/auth-cubit.dart';
 import 'package:ecommerce/views/auth/ui/login-viwe.dart';
 import 'package:ecommerce/views/navBar/UI/NavBarView.dart';
@@ -15,6 +16,7 @@ Future<void> main() async {
     url: Cons.URL,
     anonKey: Cons.annacK,
   );
+  Bloc.observer=myObserver();
   runApp(MyApp());
 }
 class MyApp extends StatelessWidget {
