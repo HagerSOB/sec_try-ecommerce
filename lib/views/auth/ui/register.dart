@@ -8,43 +8,55 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ecommerce/CustomWidgets/custom_cirucle_ind.dart';
 
-
 class RegisterViwe extends StatefulWidget {
   const RegisterViwe({super.key});
 
   @override
-  State<RegisterViwe> createState() => _LoginState();
+  State<RegisterViwe> createState() => _RegisterViewState();
 }
 
-class _LoginState extends State<RegisterViwe> {
-  String? _email;
-  String? _password;
-  String? _Name;
-  String? _confirmPassword;
+class _RegisterViewState extends State<RegisterViwe> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+  final TextEditingController confirmPassController = TextEditingController();
   final TextEditingController nameController = TextEditingController();
-  bool IsbasswordHide=true;
+
+  bool isPasswordHide = true;
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<AuthCubit,AuthenState>(
+    return BlocConsumer<AuthCubit, AuthenState>(
+      listener: (BuildContext context, state) {
+        if (state is SignUpSuccses) {
+          Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(builder: (context) =>  Mainhomeview())
+          );
+        } else if (state is SignUpError) {
+          ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(content: Text(state.message))
+          );
+        }
+      },
       builder: (BuildContext context, state) {
-        AuthCubit cubit=context.read<AuthCubit>();
-        return  Scaffold(
-          body: state is SignUpLoading ? CutomCirucleIND() : SingleChildScrollView(
+        AuthCubit cubit = context.read<AuthCubit>();
+
+        return Scaffold(
+          body: state is SignUpLoading
+              ? const CutomCirucleIND()
+              : SingleChildScrollView(
             child: Padding(
               padding: const EdgeInsets.all(20.0),
               child: Center(
                 child: Column(
                   children: [
-                    SizedBox(height: 70),
-                    Text(
+                    const SizedBox(height: 70),
+                    const Text(
                       "Welcome to our market",
                       style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
                     ),
-                    SizedBox(height: 40),
+                    const SizedBox(height: 40),
                     Card(
                       color: AppColors.kWhiteColor,
                       shape: RoundedRectangleBorder(
@@ -53,86 +65,70 @@ class _LoginState extends State<RegisterViwe> {
                         key: _formKey,
                         child: Column(
                           children: [
-                            SizedBox(height: 25),
+                            const SizedBox(height: 25),
                             CustomTextField(
+                              controller: nameController,
                               hintText: 'Name',
                               validator: (value) {
                                 if (value == null || value.isEmpty) {
-                                  return 'please enter your Name';
+                                  return 'Please enter your Name';
                                 }
-                              },
-                              onChanged: (value) {
-                                setState(() {
-                                  _Name = value;
-                                });
+                                return null;
                               },
                             ),
-                            SizedBox(height: 25),
+                            const SizedBox(height: 25),
                             CustomTextField(
+                              controller: emailController,
                               hintText: 'Email',
                               validator: (value) {
                                 if (value == null || value.isEmpty) {
-                                  return 'please enter your email';
+                                  return 'Please enter your email';
                                 }
-
                                 if (!value.contains('@')) {
-                                  return ' missing @';
+                                  return 'Missing @';
                                 }
-
                                 return null;
                               },
-                              onChanged: (value) {
-                                setState(() {
-                                  _email = value;
-                                });
-                              },
                             ),
-                            SizedBox(height: 25),
+                            const SizedBox(height: 25),
                             CustomTextField(
-                              hintText: 'password',
-                              obscureText: IsbasswordHide,
-
+                              controller: passwordController,
+                              hintText: 'Password',
+                              obscureText: isPasswordHide,
                               SuuffIcon: IconButton(
                                   onPressed: () {
                                     setState(() {
-                                      IsbasswordHide = !IsbasswordHide;
+                                      isPasswordHide = !isPasswordHide;
                                     });
                                   },
-                                  icon: Icon( IsbasswordHide ? Icons.visibility: Icons.visibility_off)),
-                              onChanged: (value) {
-                                setState(() {
-                                  _password = value;
-                                });
-                              },
+                                  icon: Icon(isPasswordHide
+                                      ? Icons.visibility
+                                      : Icons.visibility_off)),
                             ),
-                            SizedBox(height: 25),
+                            const SizedBox(height: 25),
                             CustomTextField(
+                              controller: confirmPassController,
                               hintText: 'Confirm Password',
                               obscureText: true,
-                              onChanged: (value) {
-                                setState(() {
-                                  _confirmPassword = value;
-                                });
-                              },
                               validator: (value) {
                                 if (value == null || value.isEmpty) {
                                   return 'Please confirm your password';
                                 }
-                                if (value != _password) {
+                                if (value != passwordController.text) {
                                   return 'Passwords do not match';
                                 }
                                 return null;
                               },
                             ),
-                            SizedBox(height: 25),
+                            const SizedBox(height: 25),
                             Padding(
                               padding: const EdgeInsets.symmetric(horizontal: 8),
-                              child: Container(
+                              child: SizedBox(
                                 width: double.infinity,
                                 child: ElevatedButton(
                                   style: ElevatedButton.styleFrom(
                                     backgroundColor: AppColors.kPrimaryColor,
-                                    padding: EdgeInsets.symmetric(vertical: 15.0),
+                                    padding: const EdgeInsets.symmetric(vertical: 15.0),
                                     shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(12),
                                     ),
@@ -140,38 +136,34 @@ class _LoginState extends State<RegisterViwe> {
                                   onPressed: () {
                                     if (_formKey.currentState!.validate()) {
                                       cubit.Register(
-                                        name: _Name ?? '',
-                                        email: _email ?? '',
-                                        password: _password ?? '',
+                                        name: nameController.text,
+                                        email: emailController.text,
+                                        password: passwordController.text,
                                       );
                                     }
                                   },
-                                  child: Text(
-                                    "Sing Up",
-                                    style: TextStyle(
-                                        color: Colors.white, fontSize: 22),
+                                  child: const Text(
+                                    "Sign Up",
+                                    style: TextStyle(color: Colors.white, fontSize: 22),
                                   ),
                                 ),
                               ),
                             ),
-                            SizedBox(height: 20),
+                            const SizedBox(height: 20),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Text("Already have account"),
+                                const Text("Already have account"),
                                 TextButton(
                                   onPressed: () {
                                     Navigator.pushReplacement(
                                       context,
-                                      MaterialPageRoute(
-                                          builder: (context) => LoginViwe()),
+                                      MaterialPageRoute(builder: (context) => const LoginViwe()),
                                     );
                                   },
-                                  child: Text(
+                                  child: const Text(
                                     "Login",
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.blue),
+                                    style: TextStyle(fontWeight: FontWeight.bold, color: Colors.blue),
                                   ),
                                 ),
                               ],
@@ -184,11 +176,10 @@ class _LoginState extends State<RegisterViwe> {
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(12),
                                   ),
-                                  side: BorderSide(color: Colors.white),
+                                  side: const BorderSide(color: Colors.white),
                                 ),
                                 onPressed: () {
                                   cubit.signInWithGoogle();
-                                  print("Google Sign-in clicked");
                                 },
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
@@ -200,16 +191,13 @@ class _LoginState extends State<RegisterViwe> {
                                     const SizedBox(width: 12),
                                     const Text(
                                       "Sign Up with Google",
-                                      style: TextStyle(
-                                        color: Colors.black87,
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.w500,
-                                      ),
+                                      style: TextStyle(color: Colors.black87, fontSize: 18, fontWeight: FontWeight.w500),
                                     ),
                                   ],
                                 ),
                               ),
                             ),
+                            const SizedBox(height: 20),
                           ],
                         ),
                       ),
@@ -220,21 +208,16 @@ class _LoginState extends State<RegisterViwe> {
             ),
           ),
         );
-      }, listener: (BuildContext context, Object? state) {
-      if (state is SignUpSuccses) {
-        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Mainhomeview()));
-      } else if (state is SignUpError) {
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(state.message)));
-      }
-    },
-
+      },
     );
   }
+
   @override
   void dispose() {
     emailController.dispose();
     passwordController.dispose();
     nameController.dispose();
+    confirmPassController.dispose();
     super.dispose();
   }
 }
