@@ -176,9 +176,9 @@ bool IsbasswordHide=true;
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  Image.network(
+                                 /* Image.network(
                                     'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Google_%22G%22_logo.svg/1200px-Google_%22G%22_logo.svg.png',                                height: 24,
-                                  ),
+                                  ),*/
                                   const SizedBox(width: 12),
                                   const Text(
                                     "Sign in with Google",

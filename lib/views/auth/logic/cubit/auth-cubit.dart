@@ -2,51 +2,59 @@ import 'dart:developer';
 import 'package:ecommerce/views/auth/logic/cubit/auth-state.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+
+import '../../modles/getUserDataModle.dart';
 
 class AuthCubit extends Cubit<AuthenState>{
   SupabaseClient client =Supabase.instance.client;
 
   AuthCubit():super(AuthInitialState()){
     monitorAuthState();
+    if (client.auth.currentUser != null) {
+      GetUserData();
+    }
   }
   void monitorAuthState() {
     client.auth.onAuthStateChange.listen((data) async {
       final Session? session = data.session;
       final AuthChangeEvent event = data.event;
 
-      log("Auth Event detected: $event"); // لمراقبة الحالة في الـ Console
+      log("Auth Event: $event"); // شوفي دي هتطبع إيه في الـ Console
 
-      // التعديل هنا: بنسمح بحدث الـ signedIn والـ initialSession (عشان الويب)
+      // بنركز على حدث الدخول أو استعادة الجلسة
       if (session?.user != null &&
           (event == AuthChangeEvent.signedIn || event == AuthChangeEvent.initialSession)) {
 
         final user = session!.user;
 
-        // بنضيف تأخير بسيط عشان نضمن إن الـ Session استقر تماماً قبل ما نكلم الداتابيز
         Future.delayed(const Duration(milliseconds: 500), () async {
           try {
+            // 1. تأكد من وجود البيانات أو تحديثها أولاً
             await AddUsersToData(
               Name: user.userMetadata?['full_name'] ?? 'Google User',
               Email: user.email ?? '',
             );
 
+            // 2. الآن وبعد أن تأكدنا من وجود البيانات، نقوم بجلبها
+            await GetUserData();
+
+            // 3. أخيراً نعلن نجاح العملية كاملة
             if (!isClosed) emit(GoogleSignInSuccses());
-            log("Data synced successfully from Listener");
+
           } catch (e) {
-            log("Error syncing data: $e");
+            log("Error in monitorAuthState: $e");
           }
         });
       }
     });
   }
-  ;;
 
   Future<void> login({required email,required password})async {
     emit(LoginLoading());
     try{
       await client.auth.signInWithPassword(password: password,email: email );
+      await GetUserData();
       emit(LoginSuccses());
 
     }on AuthApiException catch(e) {
@@ -64,6 +72,8 @@ class AuthCubit extends Cubit<AuthenState>{
     try{
       await client.auth.signUp(password: password,email: email,data: {'name':name} );
       await AddUsersToData(Name: name, Email: email);
+      await GetUserData();
+
       emit(SignUpSuccses());
 
     }on AuthApiException catch(e) {
@@ -115,6 +125,8 @@ class AuthCubit extends Cubit<AuthenState>{
           Name: user.userMetadata?['full_name'] ?? 'Google User',
           Email: user.email ?? '',
         );
+        await GetUserData();
+
         emit(GoogleSignInSuccses());
         print("تم تسجيل الدخول وإضافة البيانات بنجاح!");
       }
@@ -164,6 +176,23 @@ emit(UserDataAddError(error: e.toString()));
     }
 
 
+
+}
+UserModel ? currentUserModel;
+Future<void> GetUserData() async{
+    emit(GetDataLoading());
+    try{final data = await client
+        .from('Users')
+        .select().eq("User-id",client.auth.currentUser!.id).single();
+    currentUserModel = UserModel.fromMap(data);
+
+    log("Model Created: ${currentUserModel?.name}");
+      log(data.toString());
+    emit(GetDataSuccses());
+    }
+        catch (e){
+      emit(GetDataError(error: e.toString()));
+        }
 
 }
 }

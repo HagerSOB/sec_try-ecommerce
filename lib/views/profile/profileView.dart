@@ -10,6 +10,8 @@ import 'package:ecommerce/views/profile/widgets/my-ordersView.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../auth/modles/getUserDataModle.dart';
+
 class Profileview extends StatelessWidget {
   const Profileview({super.key});
 
@@ -18,6 +20,7 @@ class Profileview extends StatelessWidget {
     return BlocConsumer <AuthCubit, AuthenState>(
 
       builder: (BuildContext context, state) {
+        UserModel ?userData= context.read<AuthCubit>().currentUserModel;
         return state is LogOutLoading ? const CutomCirucleIND() : Padding(
           padding: const EdgeInsets.all(16),
           child: Column(
@@ -44,9 +47,9 @@ class Profileview extends StatelessWidget {
                     const SizedBox(
                       height: 12,
                     ),
-                    const Text(
-                      "User Name",
-                      style: TextStyle(
+                     Text(
+                       userData?.name ?? "Loading...",
+                       style: TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
                           color: AppColors.kBlackColor),
@@ -54,8 +57,8 @@ class Profileview extends StatelessWidget {
                     const SizedBox(
                       height: 12,
                     ),
-                    const Text(
-                      "User Email",
+                     Text(
+                       userData?.email ?? "Loading...",
                       style: TextStyle(
                           fontSize: 15, color: AppColors.kGreyColor),
                     ),

@@ -7,14 +7,14 @@ class CustomTextField extends StatelessWidget {
   final bool obscureText;
   final Widget ? SuuffIcon;
   final String ? name;
-  final Function(String) onChanged;
+  final Function(String)  ?onChanged;
   final String? Function(String?)? validator;
   final TextEditingController ? controller;
   const CustomTextField({
     super.key,
     required this.hintText,
     this.obscureText = false,
-    required this.onChanged, this.validator, this.SuuffIcon, this.name,  this.controller,
+     this.onChanged, this.validator, this.SuuffIcon, this.name,  this.controller,
   });
 
   @override

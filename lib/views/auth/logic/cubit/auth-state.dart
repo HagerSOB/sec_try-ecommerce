@@ -47,7 +47,7 @@ final class ResetPassError extends AuthenState{
 
   ResetPassError({required this.error});
 }
-}}
+
 final class UserDataAddSuccses extends AuthenState{}
 final class UserDataAddLoading extends AuthenState{}
 final class UserDataAddError extends AuthenState{
@@ -55,4 +55,13 @@ final class UserDataAddError extends AuthenState{
 
   UserDataAddError({required this.error});
 }
+
+final class GetDataSuccses extends AuthenState{}
+final class GetDataLoading extends AuthenState{}
+final class GetDataError extends AuthenState{
+  final String error;
+
+  GetDataError({required this.error});
+}
+
 

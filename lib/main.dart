@@ -17,7 +17,9 @@ Future<void> main() async {
     anonKey: Cons.annacK,
   );
   Bloc.observer=myObserver();
-  runApp(MyApp());
+  runApp(BlocProvider(
+      create: (BuildContext context) =>AuthCubit(),
+      child: MyApp()));
 }
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -27,13 +29,11 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     SupabaseClient client =Supabase.instance.client;
 
-    return BlocProvider(
-      create: (BuildContext context) =>AuthCubit(),
-      child: MaterialApp(
+    return MaterialApp(
         debugShowCheckedModeBanner: false,
         theme: ThemeData(scaffoldBackgroundColor: AppColors.kScaffoldColor),
         home: client.auth.currentUser !=null? Mainhomeview(): const LoginViwe(),
-      ),
+
     );
   }
 }
