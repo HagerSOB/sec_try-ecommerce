@@ -1,14 +1,16 @@
 import 'package:ecommerce/CustomWidgets/custom-evaButton.dart';
 import 'package:ecommerce/CustomWidgets/custom_cached_image.dart';
 import 'package:ecommerce/core/app_colors.dart';
+import 'package:ecommerce/core/modles/Product_Modle.dart';
 import 'package:ecommerce/views/productDetails/product-details-view.dart';
 import 'package:flutter/material.dart';
 
 class ProductCard extends StatelessWidget {
   const ProductCard({
-    super.key,
-  });
 
+    super.key,required this.product
+  });
+ final ProductModel product;
   @override
   Widget build(BuildContext context) {
     return InkWell(
@@ -21,7 +23,7 @@ class ProductCard extends StatelessWidget {
             Stack(
               children: [
                 Stack(children: [
-                  const ClipRRect(
+                   ClipRRect(
                       borderRadius: BorderRadius.only(
                         topRight: Radius.circular(12),
                         bottomLeft: Radius.circular(12),
@@ -29,14 +31,13 @@ class ProductCard extends StatelessWidget {
                       ),
                       child:
                       CustomCachedImage(
-                        url:
-                        "https://cms.dresma.com/uploads/Header_79107acd68.jpg",
+                        url: product.imageUrl,
                       )),
                   Positioned(
                       child: Container(
-                        child: const Center(
+                        child:  Center(
                             child: Text(
-                              "10% off",
+                              "${product.sale}off",
                               style: TextStyle(color: AppColors.kWhiteColor),
                             )),
                         width: 65,
@@ -60,8 +61,8 @@ class ProductCard extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const Text(
-                        "Product Name",
+                       Text(
+                        product.productName,
                         style:
                         TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
                       ),
@@ -73,7 +74,7 @@ class ProductCard extends StatelessWidget {
                           ))
                     ],
                   ),
-                  const Row(
+                   Row(
                     children: [
                       Expanded(
                         child: Column(
@@ -83,7 +84,7 @@ class ProductCard extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Text(
-                                  "150 LE",
+                                  product.price,
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold, fontSize: 20),
                                 ),
@@ -91,7 +92,7 @@ class ProductCard extends StatelessWidget {
                               ],
                             ),
                             Text(
-                              "210",
+                              product.oldPrice,
                               style: TextStyle(
                                   decoration: TextDecoration.lineThrough,
                                   fontWeight: FontWeight.bold,

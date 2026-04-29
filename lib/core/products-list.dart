@@ -29,7 +29,7 @@ class ProductList extends StatelessWidget {
             physics: physics ?? NeverScrollableScrollPhysics(),
             itemCount: products.length,
             itemBuilder: (context, index) {
-              return const ProductCard();
+              return  ProductCard(product: products[index],);
             },);
         },
       ),
