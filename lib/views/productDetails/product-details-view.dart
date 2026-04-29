@@ -1,17 +1,29 @@
 import 'package:ecommerce/CustomWidgets/CustomTextField.dart';
 import 'package:ecommerce/CustomWidgets/custom_cached_image.dart';
+import 'package:ecommerce/CustomWidgets/custom_cirucle_ind.dart';
 import 'package:ecommerce/core/Methods/custom-appBar.dart';
 import 'package:ecommerce/core/app_colors.dart';
+import 'package:ecommerce/core/modles/Product_Modle.dart';
+import 'package:ecommerce/views/productDetails/logic/product_datails_cubit.dart';
 import 'package:ecommerce/views/productDetails/widgets/comment-list.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 class ProductDetailsView extends StatelessWidget {
-  const ProductDetailsView({super.key});
-
+  const ProductDetailsView({super.key,required this.product});
+final ProductModel product;
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
+    return  BlocProvider(
+  create: (context) => ProductDatailsCubit()..getRates(productId: product.id),
+  child: BlocConsumer<ProductDatailsCubit, ProductDatailsState>(
+  listener: (context, state) {
+    // TODO: implement listener
+  },
+  builder: (context, state) {
+    ProductDatailsCubit cubit=context.read<ProductDatailsCubit>();
+    return  state is GetRateLoading?CutomCirucleIND(): Scaffold(
       appBar: CustomAppBar(context,"Product Name"),body: ListView(
       children: [
         const SizedBox(height: 10),
@@ -27,10 +39,10 @@ class ProductDetailsView extends StatelessWidget {
                   Text("Product Name"),Text("125 LE")],
               ),
               const SizedBox(height: 20,),
-              const Row(
+               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [Row(
-                  children: [Text("data "),Icon(Icons.star,color: Colors.amber,)],
+                  children: [Text("${cubit.avrageRate}"),Icon(Icons.star,color: Colors.amber,)],
                 ),Icon(Icons.favorite,color: AppColors.kGreyColor,)],
               ),
               const SizedBox(height: 20,),
@@ -68,6 +80,9 @@ class ProductDetailsView extends StatelessWidget {
       ],
     ),
     );
+  },
+),
+);
   }
 }
 

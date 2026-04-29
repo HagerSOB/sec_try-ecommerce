@@ -14,7 +14,7 @@ class ProductCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: ()=> Navigator.push(context,MaterialPageRoute(builder: (context)=> ProductDetailsView())),
+      onTap: ()=> Navigator.push(context,MaterialPageRoute(builder: (context)=> ProductDetailsView(product: product,))),
       child: Card(
         shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.all(Radius.circular(16))),
