@@ -2,6 +2,7 @@ import 'package:ecommerce/CustomWidgets/CustomTextField.dart';
 import 'package:ecommerce/CustomWidgets/custom_cached_image.dart';
 import 'package:ecommerce/CustomWidgets/custom_cirucle_ind.dart';
 import 'package:ecommerce/core/Methods/custom-appBar.dart';
+import 'package:ecommerce/core/Methods/navgation.dart';
 import 'package:ecommerce/core/app_colors.dart';
 import 'package:ecommerce/core/modles/Product_Modle.dart';
 import 'package:ecommerce/views/productDetails/logic/product_datails_cubit.dart';
@@ -19,7 +20,9 @@ final ProductModel product;
   create: (context) => ProductDatailsCubit()..getRates(productId: product.id),
   child: BlocConsumer<ProductDatailsCubit, ProductDatailsState>(
   listener: (context, state) {
-    // TODO: implement listener
+if(state is AddOrUpdateRateSucsses){
+  buildPushReplacement( context,ProductDetailsView(product: product,));
+}
   },
   builder: (context, state) {
     ProductDatailsCubit cubit=context.read<ProductDatailsCubit>();
@@ -27,9 +30,8 @@ final ProductModel product;
       appBar: CustomAppBar(context,"Product Name"),body: ListView(
       children: [
         const SizedBox(height: 10),
-        const CustomCachedImage(
-          url:
-          "https://cms.dresma.com/uploads/Header_79107acd68.jpg",
+        CustomCachedImage(
+          url:product.imageUrl
         ),Padding(
           padding: const EdgeInsets.symmetric(horizontal: 8,vertical: 30),
           child: Column(
@@ -49,7 +51,7 @@ final ProductModel product;
               const Text("data"),
       const SizedBox(height: 20,),
       RatingBar.builder(
-      initialRating: 3,
+      initialRating: cubit.userRate!.toDouble(),
       minRating: 1,
       direction: Axis.horizontal,
       itemCount: 5,
@@ -59,7 +61,12 @@ final ProductModel product;
         color: Colors.amber,
       ),
       onRatingUpdate: (rating) {
-        print(rating);
+cubit.addORUpdateUsrRate(productId: product.id, data:{
+  "for_user": cubit.userId,
+    "for_product":product.id ,
+    "rate": rating.toInt()
+
+});
       },
     ),
               SizedBox(height: 20),
