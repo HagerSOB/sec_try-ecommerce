@@ -14,3 +14,7 @@ final class GetRateError extends ProductDatailsState {}
 final class AddOrUpdateRateLoading extends ProductDatailsState {}
 final class AddOrUpdateRateSucsses extends ProductDatailsState {}
 final class AddOrUpdateRateError extends ProductDatailsState {}
+
+final class AdacommentLoading extends ProductDatailsState {}
+final class AddcommentSucsses extends ProductDatailsState {}
+final class AddcommentError extends ProductDatailsState {}

@@ -87,4 +87,17 @@ emit(AddOrUpdateRateSucsses());
        emit(AddOrUpdateRateError());
      }
    }
+
+   Future<void>addComment({required Map<String,dynamic> data})async{
+     emit(AdacommentLoading());
+     try{
+      await _apiServices.postData("comments_table", data);
+      emit(AddcommentSucsses());
+     }
+         catch(e){
+log(e.toString());
+    emit(AddcommentError());
+         }
+
+   }
 }
