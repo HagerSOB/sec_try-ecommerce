@@ -133,7 +133,7 @@ _commentController.clear();
                               ],
                             ),
                             SizedBox(height: 20),
-                            CommentsList()
+                            CommentsList(product: widget.product,)
                           ],
                         ),
                       )
