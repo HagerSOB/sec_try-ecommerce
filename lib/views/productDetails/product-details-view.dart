@@ -21,7 +21,7 @@ class ProductDetailsView extends StatefulWidget {
 }
 
 class _ProductDetailsViewState extends State<ProductDetailsView> {
-  TextEditingController _commentController=TextEditingController();
+  TextEditingController _commentController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +40,7 @@ class _ProductDetailsViewState extends State<ProductDetailsView> {
         },
         builder: (context, state) {
           ProductDatailsCubit cubit = context.read<ProductDatailsCubit>();
-          return state is GetRateLoading ||state is AdacommentLoading
+          return state is GetRateLoading || state is AdacommentLoading
               ? CutomCirucleIND()
               : Scaffold(
                   appBar: CustomAppBar(context, "Product Name"),
@@ -111,14 +111,18 @@ class _ProductDetailsViewState extends State<ProductDetailsView> {
                               controller: _commentController,
                               hintText: "Type Your Feedback",
                               SuuffIcon: IconButton(
-                                  onPressed: () async{
-await cubit.addComment(data:{
-  "comment": _commentController.text,
-  "for_user": cubit.userId,
-  "for_product":  widget.product.id,
-  "user_name": context.read<AuthCubit>().currentUserModel?.name ??"User_Name"
-} );
-_commentController.clear();
+                                  onPressed: () async {
+                                    await cubit.addComment(data: {
+                                      "comment": _commentController.text,
+                                      "for_user": cubit.userId,
+                                      "for_product": widget.product.id,
+                                      "user_name": context
+                                              .read<AuthCubit>()
+                                              .currentUserModel
+                                              ?.name ??
+                                          "User_Name"
+                                    });
+                                    _commentController.clear();
                                   },
                                   icon: Icon(Icons.send)),
                               onChanged: (String) {},
@@ -133,7 +137,9 @@ _commentController.clear();
                               ],
                             ),
                             SizedBox(height: 20),
-                            CommentsList(product: widget.product,)
+                            CommentsList(
+                              product: widget.product,
+                            )
                           ],
                         ),
                       )
@@ -143,13 +149,12 @@ _commentController.clear();
         },
       ),
     );
-
   }
-@override
+
+  @override
   void dispose() {
     // TODO: implement dispose
     _commentController.dispose();
     super.dispose();
   }
-
 }

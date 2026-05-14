@@ -28,7 +28,7 @@ final ProductModel product;
       return ListView.separated(
         shrinkWrap: true,
         physics: const NeverScrollableScrollPhysics(),
-        itemBuilder: (context, index) => Comments(),
+        itemBuilder: (context, index) => Comments(commentData: data![index],),
         separatorBuilder: (context, index) => const Divider(),
         itemCount: data?.length ?? 0,
       );

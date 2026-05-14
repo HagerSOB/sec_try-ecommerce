@@ -1,5 +1,5 @@
 import 'package:ecommerce/CustomWidgets/custom_cirucle_ind.dart';
-import 'package:ecommerce/core/home_cubit.dart';
+import 'package:ecommerce/core/modles/HomeLogic/home_cubit.dart';
 import 'package:ecommerce/core/modles/Product_Modle.dart';
 import 'package:ecommerce/core/product_card.dart';
 import 'package:flutter/material.dart';
