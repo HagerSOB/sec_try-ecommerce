@@ -14,7 +14,9 @@ class HomeView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
-      child: ListView(children: [
+      child: ListView(
+          children: [
+SizedBox(height: 15),
         const CustomSearchField(),
         const SizedBox(
           height: 20,

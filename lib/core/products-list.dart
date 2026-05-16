@@ -7,24 +7,24 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ProductList extends StatelessWidget {
   const ProductList({
-    super.key, this.shrinkWrap, this.physics,
+    super.key, this.shrinkWrap, this.physics, this.query,
   });
 
   final bool ?shrinkWrap;
   final ScrollPhysics ? physics;
-
+final String ?query;
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) =>
       HomeCubit()
-        ..getProducts(),
+        ..getProducts(query: query),
       child: BlocConsumer<HomeCubit, HomeState>(
         listener: (context, state) {
           // TODO: implement listener
         },
         builder: (context, state) {
-          List<ProductModel> products=context.read<HomeCubit>().products;
+          List<ProductModel> products=query!=null?context.read<HomeCubit>().SearchResults:context.read<HomeCubit>().products;
           return state is GetDataLoading ?CutomCirucleIND():ListView.builder(shrinkWrap: shrinkWrap ?? true,
             physics: physics ?? NeverScrollableScrollPhysics(),
             itemCount: products.length,
