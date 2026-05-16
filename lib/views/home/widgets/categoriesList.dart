@@ -1,4 +1,6 @@
+import 'package:ecommerce/core/Methods/navgation.dart';
 import 'package:ecommerce/core/app_colors.dart';
+import 'package:ecommerce/views/home/UI/category_View.dart';
 import 'package:flutter/material.dart';
 
 class CategoriesList extends StatelessWidget {
@@ -17,16 +19,21 @@ class CategoriesList extends StatelessWidget {
         itemBuilder: (context,index){
           return Padding(
             padding: const EdgeInsets.all(7),
-            child: Column(
-              children: [
-                CircleAvatar(
-                  radius: 30,
-                  backgroundColor: AppColors.kPrimaryColor,
-                  foregroundColor: AppColors.kWhiteColor,
-                  child: Icon(size: 40,categories[index].icon),
-                ), Text(categories[index].text),
+            child: GestureDetector(
+              onTap: (){
+                buildPushReplacement(context, CategoryView(category: categories[index].text,));
+              },
+              child: Column(
+                children: [
+                  CircleAvatar(
+                    radius: 30,
+                    backgroundColor: AppColors.kPrimaryColor,
+                    foregroundColor: AppColors.kWhiteColor,
+                    child: Icon(size: 40,categories[index].icon),
+                  ), Text(categories[index].text),
 
-              ],
+                ],
+              ),
             ),
           );
         },
@@ -37,7 +44,7 @@ class CategoriesList extends StatelessWidget {
 
 List<category> categories=[
   category(icon: Icons.sports, text: "sports")
-  ,category(icon: Icons.tv, text: "elctronices")
+  ,category(icon: Icons.tv, text: "electronices")
   ,category(icon: Icons.collections, text: "collections")
   ,category(icon: Icons.book, text: "books")
   ,category(icon: Icons.games, text: "games")
