@@ -8,10 +8,11 @@ import 'package:flutter/material.dart';
 class ProductCard extends StatelessWidget {
   const ProductCard({
 
-    super.key,required this.product, this.onTap
+    super.key,required this.product, this.onTap,required this.isFevorite
   });
  final ProductModel product;
  final Function()? onTap;
+ final  bool isFevorite;
   @override
   Widget build(BuildContext context) {
     return InkWell(
@@ -69,9 +70,9 @@ class ProductCard extends StatelessWidget {
                       ),
                       IconButton(
                           onPressed: onTap,
-                          icon: const Icon(
+                          icon:  Icon(
                             Icons.favorite,
-                            color: AppColors.kGreyColor,
+                            color: isFevorite? AppColors.kPrimaryColor: AppColors.kGreyColor,
                           ))
                     ],
                   ),

@@ -34,7 +34,8 @@ final String ?query;
             physics: physics ?? NeverScrollableScrollPhysics(),
             itemCount: products.length,
             itemBuilder: (context, index) {
-              return  ProductCard(product: products[index],onTap:(){
+              return  ProductCard(isFevorite: homeCubit.checkIsFavorite(products[index].id)
+                  ,product: products[index],onTap:(){
                 homeCubit.addToFevorite(products[index].id);
               });
             },);
