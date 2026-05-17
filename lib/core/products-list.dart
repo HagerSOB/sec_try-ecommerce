@@ -26,14 +26,17 @@ final String ?query;
           // TODO: implement listener
         },
         builder: (context, state) {
-          List<ProductModel> products=query!=null?context.read<HomeCubit>().SearchResults:
-          category!=null?context.read<HomeCubit>().categoryProducts
+          HomeCubit homeCubit=context.read<HomeCubit>();
+          List<ProductModel> products=query!=null?homeCubit.SearchResults:
+          category!=null? homeCubit.categoryProducts
           :context.read<HomeCubit>().products;
           return state is GetDataLoading ?CutomCirucleIND():ListView.builder(shrinkWrap: shrinkWrap ?? true,
             physics: physics ?? NeverScrollableScrollPhysics(),
             itemCount: products.length,
             itemBuilder: (context, index) {
-              return  ProductCard(product: products[index],);
+              return  ProductCard(product: products[index],onTap:(){
+                homeCubit.addToFevorite(products[index].id);
+              });
             },);
         },
       ),
