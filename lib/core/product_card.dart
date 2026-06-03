@@ -1,9 +1,12 @@
+import 'dart:math';
+
 import 'package:ecommerce/CustomWidgets/custom-evaButton.dart';
 import 'package:ecommerce/CustomWidgets/custom_cached_image.dart';
 import 'package:ecommerce/core/app_colors.dart';
 import 'package:ecommerce/core/modles/Product_Modle.dart';
 import 'package:ecommerce/views/productDetails/product-details-view.dart';
 import 'package:flutter/material.dart';
+import 'package:pay_with_paymob/pay_with_paymob.dart';
 
 class ProductCard extends StatelessWidget {
   const ProductCard({
@@ -90,7 +93,20 @@ class ProductCard extends StatelessWidget {
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold, fontSize: 20),
                                 ),
-                                CustomEvaButton(Lable: 'Buy Now!',),
+                                CustomEvaButton(Lable: 'Buy Now!', onPressed: () {Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => PaymentView(
+                                      onPaymentSuccess: () {
+                                   log("SUCCSESS" as num);
+                                      },
+                                      onPaymentError: () {
+                                        log("ERROR" as num);
+                                      },
+                                      price: double.parse(product.price), // Required: Total price (e.g., 100 for 100 EGP)
+                                    ),
+                                  ),
+                                );  },),
                               ],
                             ),
                             Text(

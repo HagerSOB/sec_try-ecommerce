@@ -3,9 +3,11 @@ import 'package:flutter/material.dart';
 
 class CustomEvaButton extends StatelessWidget {
   const CustomEvaButton({
-    super.key, required this.Lable,
+    super.key, required this.Lable,  this.onPressed,
   });
  final String Lable;
+  final VoidCallback? onPressed;
+
   @override
   Widget build(BuildContext context) {
     return ElevatedButton.icon(
@@ -16,7 +18,7 @@ class CustomEvaButton extends StatelessWidget {
           shape: RoundedRectangleBorder(
               borderRadius:
               BorderRadius.circular(8))),
-      onPressed: () {},
+      onPressed: onPressed,
 
       label:Text(Lable),
     );

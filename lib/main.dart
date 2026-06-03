@@ -32,7 +32,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
         debugShowCheckedModeBanner: false,
         theme: ThemeData(scaffoldBackgroundColor: AppColors.kScaffoldColor),
-        home: client.auth.currentUser !=null? Mainhomeview(): const LoginViwe(),
+        home: client.auth.currentUser !=null? Mainhomeview(userModel:context.read<AuthCubit>().currentUserModel!,): const LoginViwe(),
 
     );
   }
