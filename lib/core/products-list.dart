@@ -15,6 +15,8 @@ class ProductList extends StatelessWidget {
 final String ?query;
   final String ? category;
   final bool ?isFavoriteViwe;
+  /*d*/
+
 
   @override
   Widget build(BuildContext context) {
