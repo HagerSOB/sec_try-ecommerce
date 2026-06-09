@@ -11,11 +11,13 @@ import 'package:pay_with_paymob/pay_with_paymob.dart';
 class ProductCard extends StatelessWidget {
   const ProductCard({
 
-    super.key,required this.product, this.onTap,required this.isFevorite
+    super.key,required this.product, this.onTap,required this.isFevorite, required this.onPaymentSuccess
   });
  final ProductModel product;
  final Function()? onTap;
- final  bool isFevorite;
+  final VoidCallback onPaymentSuccess;
+
+  final  bool isFevorite;
   @override
   Widget build(BuildContext context) {
     return InkWell(
@@ -97,9 +99,7 @@ class ProductCard extends StatelessWidget {
                                   context,
                                   MaterialPageRoute(
                                     builder: (context) => PaymentView(
-                                      onPaymentSuccess: () {
-                                   log("SUCCSESS" as num);
-                                      },
+                                      onPaymentSuccess:onPaymentSuccess,
                                       onPaymentError: () {
                                         log("ERROR" as num);
                                       },

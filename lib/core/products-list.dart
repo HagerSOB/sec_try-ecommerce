@@ -40,7 +40,7 @@ final String ?query;
                   ,product: products[index],onTap:(){
                 bool isFavorite=homeCubit.checkIsFavorite(products[index].id);
                 isFavorite?homeCubit.RemoveFavorite(products[index].id):homeCubit.addToFevorite(products[index].id);
-              });
+              }, onPaymentSuccess: () {  },);
             },);
         },
       ),
