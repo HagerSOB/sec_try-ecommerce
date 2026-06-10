@@ -2,6 +2,7 @@ import 'package:ecommerce/CustomWidgets/CustomTextField.dart';
 import 'package:ecommerce/core/app_colors.dart';
 import 'package:ecommerce/views/auth/logic/cubit/auth-cubit.dart';
 import 'package:ecommerce/views/auth/logic/cubit/auth-state.dart';
+import 'package:ecommerce/views/auth/modles/getUserDataModle.dart';
 import 'package:ecommerce/views/auth/ui/login-viwe.dart';
 import 'package:ecommerce/views/navBar/UI/NavBarView.dart';
 import 'package:flutter/material.dart';
@@ -29,9 +30,13 @@ class _RegisterViewState extends State<RegisterViwe> {
     return BlocConsumer<AuthCubit, AuthenState>(
       listener: (BuildContext context, state) {
         if (state is SignUpSuccses) {
+          UserModel userModel=context.read<AuthCubit>().currentUserModel!;
+
           Navigator.pushReplacement(
               context,
-              MaterialPageRoute(builder: (context) =>  Mainhomeview())
+              MaterialPageRoute(builder: (context) =>
+
+                  Mainhomeview(userModel: userModel,))
           );
         } else if (state is SignUpError) {
           ScaffoldMessenger.of(context).showSnackBar(

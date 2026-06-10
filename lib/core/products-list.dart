@@ -7,14 +7,15 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ProductList extends StatelessWidget {
   const ProductList({
-    super.key, this.shrinkWrap, this.physics, this.query, this.category, this.isFavoriteViwe=false,
+    super.key, this.shrinkWrap, this.physics, this.query, this.category, this.isFavoriteViwe=false, this.isMyOrdersViwe=false,
   });
 
   final bool ?shrinkWrap;
   final ScrollPhysics ? physics;
 final String ?query;
   final String ? category;
-  final bool ?isFavoriteViwe;
+  final bool isFavoriteViwe;
+  final bool  isMyOrdersViwe;
   /*d*/
 
 
@@ -26,13 +27,17 @@ final String ?query;
         ..getProducts(query: query,category: category),
       child: BlocConsumer<HomeCubit, HomeState>(
         listener: (context, state) {
-          // TODO: implement listener
+if(state is PayProductSucsses){
+  ScaffoldMessenger.of(context).showSnackBar(
+    SnackBar(content: Text("Payment Succses, Check your orders")),
+  );
+}
         },
         builder: (context, state) {
           HomeCubit homeCubit=context.read<HomeCubit>();
           List<ProductModel> products=query!=null?homeCubit.SearchResults:
           isFavoriteViwe!?homeCubit.favoriteProductList:
-          category!=null? homeCubit.categoryProducts
+          category!=null? homeCubit.categoryProducts: isMyOrdersViwe? homeCubit.userOrders
           :context.read<HomeCubit>().products;
           return state is GetDataLoading ?CutomCirucleIND():ListView.builder(shrinkWrap: shrinkWrap ?? true,
             physics: physics ?? NeverScrollableScrollPhysics(),
@@ -42,7 +47,9 @@ final String ?query;
                   ,product: products[index],onTap:(){
                 bool isFavorite=homeCubit.checkIsFavorite(products[index].id);
                 isFavorite?homeCubit.RemoveFavorite(products[index].id):homeCubit.addToFevorite(products[index].id);
-              }, onPaymentSuccess: () {  },);
+              }, onPaymentSuccess: ()  {
+                homeCubit.buyProduct(productId:products[index].id );
+                },);
             },);
         },
       ),

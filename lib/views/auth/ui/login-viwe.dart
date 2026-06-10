@@ -3,6 +3,7 @@ import 'package:ecommerce/CustomWidgets/custom_cirucle_ind.dart';
 import 'package:ecommerce/core/app_colors.dart';
 import 'package:ecommerce/views/auth/logic/cubit/auth-cubit.dart';
 import 'package:ecommerce/views/auth/logic/cubit/auth-state.dart';
+import 'package:ecommerce/views/auth/modles/getUserDataModle.dart';
 import 'package:ecommerce/views/auth/ui/register.dart';
 import 'package:ecommerce/views/auth/ui/reset_password_view.dart';
 import 'package:ecommerce/views/navBar/UI/NavBarView.dart';
@@ -205,7 +206,9 @@ bool IsbasswordHide=true;
       },
       listener: (BuildContext context, AuthenState state) {
         if (state is LoginSuccses|| state is GoogleSignInSuccses) {
-          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Mainhomeview()));
+          UserModel userModel=context.read<AuthCubit>().currentUserModel!;
+          Navigator.pushReplacement(context,
+              MaterialPageRoute(builder: (context) => Mainhomeview(userModel:userModel  ,)));
         } else if (state is LoginError) {
           ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(state.message)));
         }

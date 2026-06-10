@@ -3,3 +3,13 @@ plugins {
     id "org.jetbrains.kotlin.android" apply false
     id "dev.flutter.flutter-gradle-plugin" apply false
 }
+
+allprojects {
+    repositories {
+        google()
+        mavenCentral()
+        maven {
+            url "https://storage.googleapis.com/download.flutter.io"
+        }
+    }
+}
